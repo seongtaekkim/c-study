@@ -101,6 +101,234 @@ int main() {
 
 
 
+### 문자열
+
+- 전통적인 c언어에서 문자열을 다루는 방법에 대해 학습합니다.
+- 다양한 문자열 관련 함수를 익히고 활용합니다.
+
+
+
+문자열의개념
+
+- 문자열은 말 그대로 문자들의 배열이다.
+- 문자열은 컴퓨터 메모리의 구조상에서 마지막에 널을 포함합니다.
+
+| 0    | 1    | 2    | 3    | 4    | 5    | 6    | 7    | 8    | 9    | 10   | 11   |
+| ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| H    | E    | L    | L    | O    |      | W    | O    | R    | L    | D    | \0   |
+
+- \0 == null (존재하지 않는다.)
+
+- 널은 문자열의 끝을 알리는 목적으로 사용된다.
+- printf()를 실행하면, 내부적으로 null을 만날 때까지 출력한다.
+
+
+
+
+
+문자열과 포인터
+
+- 문자열 형태로 포인터를 사용하면 포인터에 특정한 문자열의 주소를 넣게된다.
+- 다음 코드는 "Hello World" 문자열을 읽기전용으로 메모리에 넣은 뒤에 그 위치를 처리한다.
+- 이러한 문자열을 '문자열리터럴'이라고 한다. 이는 컴파일러가 알아서 메모리주소를 결정한다.
+
+~~~c
+#include <stdio.h>
+int main() {
+ char *a = "Hello World";
+ printf("%s\n",a);
+ return 0;
+}
+~~~
+
+
+
+- 포인터로 문자열을 선언 후, 배열처럼 사용 가능하다.
+
+~~~c
+#include <stdio.h>
+int main() {
+ char *a = "Hello World";
+ printf("%c\n",a[1]);
+ printf("%c\n",a[3]);
+ printf("%c\n",a[5]);
+ return 0;
+}
+~~~
+
+
+
+
+
+문자열입출력함수
+
+- 문자열입출력을 수행한다.
+- scan()는 공백을 만날때까지 입력받지만, get()은 공백까지 포함하여 한 줄을 입력받는다.
+
+~~~c
+#include <stdio.h>
+int main() {
+ char a[100];
+ gets(a);
+ printf("%s\n",a);
+ return 0;
+}
+~~~
+
+
+
+- get()은 버퍼의 크기를 벗어나버려도 입력을 받는다.
+- c11표준부터는 버퍼의 크기를 지키는 gets_s()가 추가되었다.
+
+~~~c
+#include <stdio.h>
+int main() {
+ char a[100];
+ gets_s(a,sizeof(a));
+ printf("%s\n",a);
+ return 0;
+}
+~~~
+
+
+
+
+
+문자열 처리를 위한 다양한 함수
+
+- c언어의 문자열처리와 관련해서는 기본적인 문자열 함수를 알아야 한다.
+- <string.h> 에 포함되어있다.
+
+| 함수명   | 설명                                                         |
+| -------- | ------------------------------------------------------------ |
+| strlen() | 문자열의 길이를 반환한다.                                    |
+| strcmp() | 문자열1이문자열2보다 사전적으로 앞에있으면 -1, 뒤에있으면 1 반환 |
+| strcpy() | 문자열을 복사한다.                                           |
+| strcat() | 문자열 1에 문자열 2를 더한다.                                |
+| strata() | 문자열1에 문자열2가 어떻게 포함되어있는 지 를 반환한다.      |
+
+
+
+~~~c
+#include <stdio.h>
+int main() {
+ char a[20] = "seongtaek kim";
+ printf("문자열길이 : %d\n",strlen(a));
+ return 0;
+}
+~~~
+
+
+
+~~~c
+#include <stdio.h>
+int main() {
+ char a[20] = "seongtaek kim";
+ char b[20] = "staek";
+ printf("문자열비교 : %d\n",strcmp(a,b));
+ return 0;
+}
+~~~
+
+
+
+- c언어에서는 기본적으로 a=b와 같은 방식으로는 문자열을 복사할 수 없다.
+
+~~~c
+#include <stdio.h>
+int main() {
+ char a[20] = "seongtaek kim";
+ char b[20] = "staek";
+ strcpy(a,b);
+ printf("복사된문자열 : %s\n",a);
+ return 0;
+}
+~~~
+
+- b 문자열을 a에 복사하는 것임.
+
+
+
+
+
+~~~c
+#include <stdio.h>
+int main() {
+ char a[20] = "seongtaek kim";
+ char b[20] = "staek";
+ strcat(a,b);
+ printf("합쳐진문자열 : %s\n",a);
+ return 0;
+}
+~~~
+
+- a+b 형태로 문자열이 출력됨.
+
+
+
+- 긴 문자열에서 짧은 문자열을 찾아 그 위치를 반환한다.
+- 짧은 문자열을 찾은 주소 값 자체를 반환하므로 단순히 출력하면, 찾은 이후 모든 문자열이 반환된다.
+
+~~~c
+#include <stdio.h>
+int main() {
+ char a[20] = "seongtaek kim";
+ char b[20] = "seongtaek";
+ printf("문자열 : %s\n", strstr(a,b));
+ return 0;
+}
+~~~
+
+- seongtaek 이 출력된다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
