@@ -1,6 +1,6 @@
 
 
-
+[TOC]
 
 
 
@@ -280,6 +280,166 @@ int main() {
 ~~~
 
 - seongtaek 이 출력된다.
+
+
+
+
+
+
+
+### 포인터배열
+
+- 배열은 포인터와 동일한 방식으로 동작한다.
+- 배열의 이름은 배열의 원소의 첫 번째 주소가 된다.
+- 차이점은, 포인터는 변수이고 배열의이름은 상수이다.
+
+
+
+##### 배열의 이름이 변수인지 상수인지는 다음 소스로 확인.
+
+~~~c
+#include <stdio.h>
+int main(void) {
+ int a=10;
+  int b[10];
+  b = &a;
+ return 0;
+}
+~~~
+
+- 문법에러 발생
+
+
+
+##### 포인터는 배열처럼 사용할 수 있다.
+
+~~~c
+#include <stdio.h>
+int main(void) {
+ int a[5] = {1,2,3,4,5};
+ int *b= a;
+ printf("%d\n",b[2]);
+ return 0;
+}
+~~~
+
+
+
+##### 배열의 이름은 배열의 첫 번째 원소의 주소이다.
+
+~~~c
+#include <stdio.h>
+int main(void) {
+ int a[5] = {1,2,3,4,5};
+ int *b= &a[0];
+ printf("%d\n",b[2]);
+ return 0;
+}
+~~~
+
+
+
+##### 포인터는 연산을 통해 자료형 크기만큼 이동한다.
+
+~~~c
+#include <stdio.h>
+int main(void) {
+ int a[5] = {1,2,3,4,5};
+ int i;
+ for(i=0 ; i<5 ; i++) {
+  printf("%d ", a+i);
+ }
+ return 0;
+}
+~~~
+
+- 정수형 포인터는 4byte씩 이동함.
+
+
+
+크기가 10인 double형 배열을 선언했을 때 배열의 시작주소가 xfkrh gksek.
+
+이 때 배열의 마지막 원소의 주소는 ?
+
+~~~c
+#include <stdio.h>
+int main(void) {
+ double b[10];
+ printf("%d %d\n",b,b+9);
+ return 0;
+}
+~~~
+
+- x + 9*8 이다.
+
+
+
+##### 배열을 포인터처럼 사용해서 각 원소에 접근할 수 있다.
+
+~~~c
+#include <stdio.h>
+int main(void) {
+ int a[5] = {1,2,3,4,5};
+ int i;
+ for(i=0; i<5 ; i++) {
+  printf("%d ",*(a+i));
+ }
+ return 0;
+}
+~~~
+
+- a+1 은 a 보다 자료형의 byte 만큼 크다.
+
+
+
+~~~c
+#include <stdio.h>
+int main(void) {
+ int a[5] = {1,2,3,4,5};
+ int *p= a;
+ printf("%d\n", *(p++));
+ printf("%d\n", *(++p));
+ printf("%d\n", *(p+2));
+ return 0;
+}
+~~~
+
+
+
+##### 2차원 배열을 포인터로 처리
+
+~~~c
+#include <stdio.h>
+int main(void) {
+ int a[2][5] = {{1,2,3,4,5},{,6,7,8,9,10}};
+ int (*p)[5] = a[1];
+ int i;
+ for(i=0; i<5; i++) {
+  printf("%d",p[0][i]);
+ }
+ return 0;
+}
+~~~
+
+- 2번째 행 시작 주소를 포인터에 할당한 후 연속으로 출력
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
