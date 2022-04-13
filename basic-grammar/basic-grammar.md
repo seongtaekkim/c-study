@@ -429,6 +429,167 @@ int main(void) {
 
 
 
+### 동적메모리 할당
+
+- 일반적으로 c언어에서 배열의 경우 사전에 적절한 크기만큼 할당해 주어야 한다.
+- 우리가 원하는 만큼만 메모리를 할당해서 사용하고자 한다면 동적메모리 할당을 사용한다.
+- 동적이라는 말은 프로그램실행도중 이라는 의미이다.
+
+
+
+
+
+##### 동적메모리 할당함수
+
+- c언어에선느 malloc() 함수를 이용해 원하는 만큼 메모리 공간을 확보할 수 있다.
+- malloc()은 메모리할당에 성공하면 주소를 반환하고, 그렇지 않으면 NULL을 반환한다.
+- <stdlib.h> 에 정의되어 있다.
+
+
+
+
+
+~~~c
+#include <stdio.h>
+#include <stdlib.h>
+int main() {
+ int *a = malloc(sizeof(int));
+ printf("%d\n",a);
+ a = malloc(sizeof(int));
+ printf("%d\n",a);
+ return 0;
+}
+~~~
+
+- 동적메모리할당을 수행할 때마다 할당되는 표인터의 주소는 변칙적이다.
+
+- 동적으로 할당된 변수는 힙영역에 저장된다.
+
+
+
+
+
+- 전동적인 c언어에서는 스택에 선언된 변수는 따로 메모리해제를 안해도 된다.
+- 반면, 동적으로 할당된 변수는 반드시 free()로 해제해야 한다.
+- 메모리 누수 방지는 코어개발자의 핵심역량이다.
+
+
+
+
+
+~~~c
+#include <stdio.h>
+#include <stdlib.h>
+int main() {
+ int *a = malloc(sizeof(int));
+ printf("%d\n",a);
+ free(a);
+ a = malloc(sizeof(int));
+ printf("%d\n",a);
+ return 0;
+}
+~~~
+
+- 할당한 메모리를 해제한 후 다시 할당하면, 같은 메모리주소를 할당받을 확률이 높다.
+
+
+
+
+
+
+
+- 일괄적인 범위의 메모리를 모두 특정한 값으로 설정하기 위해 memset()을 사용한다.
+- memset(포인터, 값, 크기);
+- 한 바이트 씩 값을 저장하므로 문자열 배열의 처리방식과 흡사하다.
+- <string.h>에 정의되어 있다.
+
+
+
+
+
+##### Memset() 예제 
+
+~~~c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main() {
+ char *a malloc(100);
+ memset(a,'A',100);
+ for(int i=0; i<100 ; i++) {
+  printf("%c ",a[i]);
+ }
+ return 0;
+}
+~~~
+
+- 기존에는 단순히 반복문을 이용해 원소를 처리했으나 memset()은 일반적으로 더 빠르게 동작한다.
+
+
+
+
+
+##### 2차원포인터 동적할당 예제
+
+~~~c
+#include <stdio.h>
+#include <stdlib.h>
+int main() {
+ int** p = (int**)malloc(sizeof(int*)*3);
+ for(int i=0 ; i<3; i++) {
+   *(p+1) = (int*)malloc(sizeof(int)*3);
+ }
+ for(int i=0 ; i<3 ; i++) {
+   for(int j=0 ; j<3 ; j++) {
+     *(*(p+i)+j) = i*3+j;
+   } 
+ }
+  
+ for(int i=0 ; i<3 ; i++) {
+   for(int j=0 ; j<3 ; j++) {
+     printf("%d ",*(*(p+i)+j));
+   } 
+   printf("\n");
+ }
+ return 0;
+
+~~~
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
