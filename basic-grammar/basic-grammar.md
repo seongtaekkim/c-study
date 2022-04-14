@@ -568,6 +568,201 @@ int main() {
 
 
 
+### 함수포인터
+
+- c언어에서는 함수의 이름을 이용해 특정한 함수를 호출한다.
+- 함수 이름은 메모리 주소를 반환한다.
+
+
+
+~~~c
+#include <stdio.h>
+void function() {
+ printf("it's my function");
+}
+int main() {
+ printf("%d\n"m function);
+ return 0;
+}
+~~~
+
+함수포인터는 특정한 함수의 반환자료형을 지정하는 방식으로 선언할 수 있다.
+
+함수포인터를 이용하면 형태가 같은 서로 다른기능의 함수를 선택적으로 사용할 수 있다.
+
+반환자료형(*이름)(매개변수) = 함수명;
+
+
+
+
+
+##### 매개변수 및 반환자료형이 없는 함수포인터
+
+~~~c
+#include <stdio.h>
+
+void myFunction() {
+ printf("it is my function");
+}
+void yourFunction() {
+	printf("it is your function");
+}
+int main() {
+ void(*fp)() = myFunction;
+ fp();
+ fp = yourFunction;
+ fp();
+ return 0;
+}
+~~~
+
+
+
+
+
+##### 매개변수 및 반화자료형이 있는 함수포인터
+
+~~~c
+#include <stdio.h>
+int add(int a, int b) {
+ return a+b;
+}
+int sub(int a, int b) {
+ return a-b;
+}
+int main() {
+ int(*fp)(int, int) = add;
+ printf("%d\n",fp(10,3));
+ fp = sub;
+ printf("%d\n",fp(10,3));
+ return 0;
+}
+
+~~~
+
+
+
+##### 함수포인터를 반환하여 사용하기
+
+~~~c
+#include <stdio.h>
+int add(int a, int b) {
+ return a+b;
+}
+int(*process(char* a))(int, int) {
+ printf("%s\n",a);
+ return add;
+}
+int main() {
+ printf("%d\n",process("10과20을 더하겠습니다.")(10,20));
+ return 0;
+}
+~~~
+
+
+
+#### 정리
+
+##### c언어 프로그램의 모든 함수는 내부적으로 포인터 형태로 관리할 수 있다.
+
+##### 함수포인터는 자주 사용되지 않지만 알고있으면 컴퓨터의 구조를 이해하는데 도움을 준다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
